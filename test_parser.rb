@@ -104,8 +104,16 @@ class TestReductionZ < Test::Unit::TestCase
     assert_equal "1330", cont_red_z
   end
 
-  def teardown
-    @parser.print_redz
+  def test_parse
+    @parser.parse(@text)
+
+    redz = {
+        :id => 17936,
+        :data_movimento => Date.parse("05/03/2013"),
+        :cont_reducao_z => "1330"
+    }
+
+    assert_equal redz, @parser.reducao_z
   end
 
 end

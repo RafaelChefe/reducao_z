@@ -5,6 +5,8 @@ TYPE = 1
 
 class Parser
 
+  attr_reader :reducao_z
+
   def initialize
     @regexps = {
       :id => [/coo:\d{6}/im, :integer],
@@ -25,8 +27,16 @@ class Parser
       return value.to_i
     when :date
       return Date.parse(value)      
-    else
-      value
+    when :string
+      return value
+    end
+  end
+
+  def parse(text)
+    @regexps.each_key do |k|
+      line = @regexps[k][REGEX].match(text)
+
+      @reducao_z[k] = fix_type(get_value(line), @regexps[k][TYPE])
     end
   end
 
@@ -48,10 +58,6 @@ class Parser
 
     @reducao_z[:cont_reducao_z] =
                     fix_type(get_value(line), @regexps[:cont_reducao_z][TYPE])
-  end
-
-  def print_redz
-    puts @reducao_z
   end
 
 end
