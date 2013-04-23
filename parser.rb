@@ -11,14 +11,11 @@ class Parser
     @regexps = {
       :id => [/coo:\d{6}/im, :integer],
       :data_movimento => [/movimento do dia: \d{2}\/\d{2}\/\d{4}/im, :date],
-      :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string]
+      :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string],
+      :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string]
     }
 
     @reducao_z = {}
-  end
-
-  def get_value(line)
-    line.to_s.split(":")[1].strip
   end
 
   def fix_type(value, type)
@@ -33,31 +30,16 @@ class Parser
   end
 
   def parse(text)
-    @regexps.each_key do |k|
-      line = @regexps[k][REGEX].match(text)
+    @regexps.each_key do |key|
+      line = @regexps[key][REGEX].match(text)
 
-      @reducao_z[k] = fix_type(get_value(line), @regexps[k][TYPE])
+      if line != nil
+        # gets only the value from a pair like key: value
+        value = line.to_s.split(":")[1].strip
+
+        # converts to the appropriate type, based on the @regexps hash
+        @reducao_z[key] = fix_type(value, @regexps[key][TYPE]) 
+      end
     end
   end
-
-  def parse_id(text)
-    line = @regexps[:id][REGEX].match(text)
-
-    @reducao_z[:id] = fix_type(get_value(line), @regexps[:id][TYPE])
-  end
-
-  def parse_data_movimento(text)
-    line = @regexps[:data_movimento][REGEX].match(text)
-
-    @reducao_z[:data_movimento] =
-                    fix_type(get_value(line), @regexps[:data_movimento][TYPE])
-  end
-
-  def parse_cont_reduc_z(text)
-    line = @regexps[:cont_reducao_z][REGEX].match(text)
-
-    @reducao_z[:cont_reducao_z] =
-                    fix_type(get_value(line), @regexps[:cont_reducao_z][TYPE])
-  end
-
 end

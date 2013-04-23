@@ -4,8 +4,6 @@ require "./parser"
 class TestReductionZ < Test::Unit::TestCase
 
   def setup
-    @parser = Parser.new
-
     @text << "------------------------------------------------\n"
     @text << "05/03/2013 19:09:14 COO:017936\n"
     @text << "------------------------------------------------\n"
@@ -84,34 +82,31 @@ class TestReductionZ < Test::Unit::TestCase
     @text << "FAB:BE0306SC95531101930 05/03/2013 19:09:43\n"
     @text << "QQQQQQQQQWYRREQQTU BR\n"
     @text << "------------------------------------------------\n"
-  end
 
-  def test_parse_id
-    id = @parser.parse_id(@text)
-
-    assert_equal 17936, id
-  end
-
-  def test_parse_data_movimento
-    dt_mov = @parser.parse_data_movimento(@text)
-
-    assert_equal Date.parse("05/03/2013"), dt_mov
-  end
-
-  def test_parse_cont_reduc_z
-    cont_red_z = @parser.parse_cont_reduc_z(@text)
-
-    assert_equal "1330", cont_red_z
+    @parser = Parser.new
   end
 
   def test_parse
     @parser.parse(@text)
+    
+    redz = {
+      :id => 17936,
+      :data_movimento => Date.parse("05/03/2013"),
+      :cont_reinicio_operacao => "004",
+      :cont_reducao_z => "1330"
+    }
+
+    assert_equal redz, @parser.reducao_z
+  end
+
+  def test_cont_reinicio_operacao
+    text = "Contador de Reinício de Operação: 004\n"
 
     redz = {
-        :id => 17936,
-        :data_movimento => Date.parse("05/03/2013"),
-        :cont_reducao_z => "1330"
+      :cont_reinicio_operacao => "004"
     }
+
+    @parser.parse(text)
 
     assert_equal redz, @parser.reducao_z
   end
