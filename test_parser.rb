@@ -88,12 +88,13 @@ class TestReductionZ < Test::Unit::TestCase
 
   def test_parse
     @parser.parse(@text)
-    
+
     redz = {
       :id => 17936,
       :data_movimento => Date.parse("05/03/2013"),
       :cont_reinicio_operacao => "004",
-      :cont_reducao_z => "1330"
+      :cont_reducao_z => "1330",
+      :cont_operacoes_nao_fiscais => "005185"
     }
 
     assert_equal redz, @parser.reducao_z
@@ -104,6 +105,18 @@ class TestReductionZ < Test::Unit::TestCase
 
     redz = {
       :cont_reinicio_operacao => "004"
+    }
+
+    @parser.parse(text)
+
+    assert_equal redz, @parser.reducao_z
+  end
+
+  def test_cont_operacoes_nao_fiscais
+    text = "Geral de Operação Não Fiscal: 005185"
+
+    redz = {
+      :cont_operacoes_nao_fiscais => "005185"
     }
 
     @parser.parse(text)

@@ -12,7 +12,8 @@ class Parser
       :id => [/coo:\d{6}/im, :integer],
       :data_movimento => [/movimento do dia: \d{2}\/\d{2}\/\d{4}/im, :date],
       :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string],
-      :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string]
+      :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string],
+      :cont_operacoes_nao_fiscais => [/geral de operação não fiscal: \d+/im, :string],
     }
 
     @reducao_z = {}
