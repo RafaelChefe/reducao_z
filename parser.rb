@@ -5,10 +5,10 @@ TYPE = 1
 
 class Parser
 
-  attr_reader :reducao_z
-
   def initialize
-    @regexps = {
+    # parsing information for each field, organized like this:
+    # :field_key => [/regex/, :data_type]
+    @fields_spec = {
       :id => [/coo:\d{6}/im, :integer],
       :data_movimento => [/movimento do dia: \d{2}\/\d{2}\/\d{4}/im, :date],
       :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string],
@@ -16,10 +16,9 @@ class Parser
       :cont_operacoes_nao_fiscais => [/geral de operação não fiscal: \d+/im, :string],
       :cont_comp_deb_cred => [/comprovante de crédito ou débito: \d+/im, :string]
     }
-
-    @reducao_z = {}
   end
 
+  # converts a string to the given data type
   def fix_type(value, type)
     case type
     when :integer
@@ -32,16 +31,23 @@ class Parser
   end
 
   def parse(text)
-    @regexps.each_key do |key|
-      line = @regexps[key][REGEX].match(text)
+    reducao_z = Hash.new
+
+    # for each field specified in @fields_spec
+    @fields_spec.each_key do |key|
+
+      # matches the corresponding line using the specified regex
+      line = @fields_spec[key][REGEX].match(text)
 
       if line != nil
-        # gets only the value from a pair like key: value
+        # extracts only the value from the matched line (after the ":")
         value = line.to_s.split(":")[1].strip
 
-        # converts to the appropriate type, based on the @regexps hash
-        @reducao_z[key] = fix_type(value, @regexps[key][TYPE]) 
+        # converts to the specified data type
+        reducao_z[key] = fix_type(value, @fields_spec[key][TYPE]) 
       end
     end
+
+    reducao_z
   end
 end

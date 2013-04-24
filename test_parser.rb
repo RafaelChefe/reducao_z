@@ -4,7 +4,7 @@ require "./parser"
 class TestReductionZ < Test::Unit::TestCase
 
   def setup
-    @text << "------------------------------------------------\n"
+    @text  = "------------------------------------------------\n"
     @text << "05/03/2013 19:09:14 COO:017936\n"
     @text << "------------------------------------------------\n"
     @text << "REDUÇÃO Z\n"
@@ -87,8 +87,6 @@ class TestReductionZ < Test::Unit::TestCase
   end
 
   def test_parse
-    @parser.parse(@text)
-
     redz = {
       :id => 17936,
       :data_movimento => Date.parse("05/03/2013"),
@@ -98,43 +96,39 @@ class TestReductionZ < Test::Unit::TestCase
       :cont_comp_deb_cred => "0004"
     }
 
-    assert_equal redz, @parser.reducao_z
+    reducao_z = @parser.parse(@text)
+
+    assert_equal redz, reducao_z
   end
 
   def test_cont_reinicio_operacao
     text = "Contador de Reinício de Operação: 004\n"
 
-    redz = {
-      :cont_reinicio_operacao => "004"
-    }
+    redz = { :cont_reinicio_operacao => "004" }
 
-    @parser.parse(text)
+    reducao_z = @parser.parse(text)
 
-    assert_equal redz, @parser.reducao_z
+    assert_equal redz, reducao_z
   end
 
   def test_cont_operacoes_nao_fiscais
     text = "Geral de Operação Não Fiscal: 005185"
 
-    redz = {
-      :cont_operacoes_nao_fiscais => "005185"
-    }
+    redz = { :cont_operacoes_nao_fiscais => "005185" }
 
-    @parser.parse(text)
+    reducao_z = @parser.parse(text)
 
-    assert_equal redz, @parser.reducao_z
+    assert_equal redz, reducao_z
   end
 
   def test_cont_comp_deb_cred
     text = "Comprovante de Crédito ou Débito: 0004"
 
-    redz = {
-      :cont_comp_deb_cred => "0004"
-    }
+    redz = { :cont_comp_deb_cred => "0004" }
 
-    @parser.parse(text)
+    reducao_z = @parser.parse(text)
 
-    assert_equal redz, @parser.reducao_z 
+    assert_equal redz, reducao_z 
   end
 
 end
