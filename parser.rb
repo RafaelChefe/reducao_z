@@ -14,7 +14,6 @@ class Parser
       :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string],
       :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string],
       :cont_operacoes_nao_fiscais => [/geral de operação não fiscal: \d+/im, :string],
-      :cont_operacoes_nao_fiscais => [/geral de operação não fiscal: \d+/im, :string],
       :cont_comp_deb_cred => [/comprovante de crédito ou débito: \d+/im, :string]
     }
 
