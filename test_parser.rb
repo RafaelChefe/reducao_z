@@ -86,20 +86,20 @@ class TestReductionZ < Test::Unit::TestCase
     @parser = Parser.new
   end
 
-  # def test_parse
-  #   @parser.parse(@text)
+  def test_parse
+    @parser.parse(@text)
 
-  #   redz = {
-  #     :id => 17936,
-  #     :data_movimento => Date.parse("05/03/2013"),
-  #     :cont_reinicio_operacao => "004",
-  #     :cont_reducao_z => "1330",
-  #     :cont_operacoes_nao_fiscais => "005185",
-  #     :cont_comp_deb_cred => "0004"
-  #   }
+    redz = {
+      :id => 17936,
+      :data_movimento => Date.parse("05/03/2013"),
+      :cont_reinicio_operacao => "004",
+      :cont_reducao_z => "1330",
+      :cont_operacoes_nao_fiscais => "005185",
+      :cont_comp_deb_cred => "0004"
+    }
 
-  #   assert_equal redz, @parser.reducao_z
-  # end
+    assert_equal redz, @parser.reducao_z
+  end
 
   def test_cont_reinicio_operacao
     text = "Contador de Reinício de Operação: 004\n"
