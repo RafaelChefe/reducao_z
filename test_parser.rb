@@ -4,84 +4,87 @@ require "./parser"
 class TestReductionZ < Test::Unit::TestCase
 
   def setup
-    @text  = "------------------------------------------------\n"
-    @text << "05/03/2013 19:09:14 COO:017936\n"
-    @text << "------------------------------------------------\n"
-    @text << "REDUÇÃO Z\n"
-    @text << "MOVIMENTO DO DIA: 05/03/2013\n"
-    @text << "-------CONTADORES-------\n"
-    @text << "Contador de Reduções Z: 1330\n"
-    @text << "Contador de Reinício de Operação: 004\n"
-    @text << "Geral de Operação Não Fiscal: 005185\n"
-    @text << "Comprovante de Crédito ou Débito: 0004\n"
-    @text << "Geral de Operação Não-Fiscal Cancelada: 0000\n"
-    @text << "Geral de Relatório Gerencial: 001817\n"
-    @text << "Contador de Cupom Fiscal: 009792\n"
-    @text << "Cupom Fiscal Cancelado: 0003\n"
-    @text << "Contador de Fita Detalhe: 000000\n"
-    @text << "-TOTALIZADORES FISCAIS--\n"
-    @text << "TOTALIZADOR GERAL: 1.533.200,46\n"
-    @text << "VENDA BRUTA DIÁRIA: 1.446,00\n"
-    @text << "CANCELAMENTO ICMS: 278,00\n"
-    @text << "DESCONTO ICMS: 15,78\n"
-    @text << "Total de ISSQN: 0,00\n"
-    @text << "CANCELAMENTO ISSQN: 0,00\n"
-    @text << "------------------\n"
-    @text << "VENDA LÍQUIDA: 1.152,22\n"
-    @text << "ACRÉSCIMO ICMS: 0,00\n"
-    @text << "ACRÉSCIMO ISS: 0,00\n"
-    @text << "----------ICMS----------\n"
-    @text << "Totalizador Base Cálculo( R$) Imposto( R$)\n"
-    @text << "T07,00% 0,00 0,00\n"
-    @text << "T12,00% 0,00 0,00\n"
-    @text << "T25,00% 0,00 0,00\n"
-    @text << "T17,00% 487,50 82,87\n"
-    @text << "------------------\n"
-    @text << "Total ICMS: 487,50 82,87\n"
-    @text << "---------ISSQN----------\n"
-    @text << "Totalizador Base Cálculo( R$) Imposto( R$)\n"
-    @text << "------------------\n"
-    @text << "Total ISSQN: 0,00 0,00\n"
-    @text << "-----Não Tributados-----\n"
-    @text << "Totalizador Valor Acumulado( R$)\n"
-    @text << "Substituição Tributária ICMS: 0,00\n"
-    @text << "Isento ICMS: 664,72\n"
-    @text << "Não Incidência ICMS: 0,00\n"
-    @text << "Substituição Tributária ISSQN: 0,00\n"
-    @text << "Isento ISSQN: 0,00\n"
-    @text << "Não Incidência ISSQN: 0,00\n"
-    @text << "-----------TOTALIZADORES NÃO FISCAIS------------\n"
-    @text << "CANC NÃO-FISC: 0,00\n"
-    @text << "DESC NÃO-FISC: 0,00\n"
-    @text << "ACRE NÃO-FISC: 0,00\n"
-    @text << "Nº Operação CON Valor Acumulado( R$)\n"
-    @text << "29 Sangria : 0001 50,00\n"
-    @text << "30 Suprimento : 0001 50,00\n"
-    @text << "------------------\n"
-    @text << "Total Operações Não-Fiscais R$ 100,00\n"
-    @text << "--RELATÓRIO GERENCIAL---\n"
-    @text << "Nº Relatório CER\n"
-    @text << "01 Relatório Geral 0005\n"
-    @text << "---MEIOS DE PAGAMENTO---\n"
-    @text << "No. Meio Pagamento TEF Valor Acumulado ( R$)\n"
-    @text << "01 Dinheiro N 343,00\n"
-    @text << "02 cartão S 436,35\n"
-    @text << "03 Cheque S 404,00\n"
-    @text << "04 Devoluçäes S 65,00\n"
-    @text << "05 Saldo anterior S 0,00\n"
-    @text << "TROCO 46,13\n"
-    @text << "------------------------------------------------\n"
-    @text << "Comprovante Não Emitido: 0002\n"
-    @text << "Tempo Emitindo Doc. Fiscal: 00:18:20\n"
-    @text << "Tempo Operacional: 19:09:14\n"
-    @text << "MFD: 8751061142206\n"
-    @text << "Número de Reduções Restantes: 0712\n"
-    @text << "------------------------------------------------\n"
-    @text << "BEMATECH MP-2000 TH FI ECF-IF\n"
-    @text << "ECF:001 LJ:0032 VERSÃO:01.03.02\n"
-    @text << "FAB:BE0306SC95531101930 05/03/2013 19:09:43\n"
-    @text << "QQQQQQQQQWYRREQQTU BR\n"
-    @text << "------------------------------------------------\n"
+    # a small hack to remove leading whitespace
+    @text = <<-EOS.gsub(/^\s+/, "")
+      ------------------------------------------------
+      05/03/2013 19:09:14 COO:017936
+      ------------------------------------------------
+      REDUÇÃO Z
+      MOVIMENTO DO DIA: 05/03/2013
+      -------CONTADORES-------
+      Contador de Reduções Z: 1330
+      Contador de Reinício de Operação: 004
+      Geral de Operação Não Fiscal: 005185
+      Comprovante de Crédito ou Débito: 0004
+      Geral de Operação Não-Fiscal Cancelada: 0000
+      Geral de Relatório Gerencial: 001817
+      Contador de Cupom Fiscal: 009792
+      Cupom Fiscal Cancelado: 0003
+      Contador de Fita Detalhe: 000000
+      -TOTALIZADORES FISCAIS--
+      TOTALIZADOR GERAL: 1.533.200,46
+      VENDA BRUTA DIÁRIA: 1.446,00
+      CANCELAMENTO ICMS: 278,00
+      DESCONTO ICMS: 15,78
+      Total de ISSQN: 0,00
+      CANCELAMENTO ISSQN: 0,00
+      ------------------
+      VENDA LÍQUIDA: 1.152,22
+      ACRÉSCIMO ICMS: 0,00
+      ACRÉSCIMO ISS: 0,00
+      ----------ICMS----------
+      Totalizador Base Cálculo( R$) Imposto( R$)
+      T07,00% 0,00 0,00
+      T12,00% 0,00 0,00
+      T25,00% 0,00 0,00
+      T17,00% 487,50 82,87
+      ------------------
+      Total ICMS: 487,50 82,87
+      ---------ISSQN----------
+      Totalizador Base Cálculo( R$) Imposto( R$)
+      ------------------
+      Total ISSQN: 0,00 0,00
+      -----Não Tributados-----
+      Totalizador Valor Acumulado( R$)
+      Substituição Tributária ICMS: 0,00
+      Isento ICMS: 664,72
+      Não Incidência ICMS: 0,00
+      Substituição Tributária ISSQN: 0,00
+      Isento ISSQN: 0,00
+      Não Incidência ISSQN: 0,00
+      -----------TOTALIZADORES NÃO FISCAIS------------
+      CANC NÃO-FISC: 0,00
+      DESC NÃO-FISC: 0,00
+      ACRE NÃO-FISC: 0,00
+      Nº Operação CON Valor Acumulado( R$)
+      29 Sangria : 0001 50,00
+      30 Suprimento : 0001 50,00
+      ------------------
+      Total Operações Não-Fiscais R$ 100,00
+      --RELATÓRIO GERENCIAL---
+      Nº Relatório CER
+      01 Relatório Geral 0005
+      ---MEIOS DE PAGAMENTO---
+      No. Meio Pagamento TEF Valor Acumulado ( R$)
+      01 Dinheiro N 343,00
+      02 cartão S 436,35
+      03 Cheque S 404,00
+      04 Devoluçäes S 65,00
+      05 Saldo anterior S 0,00
+      TROCO 46,13
+      ------------------------------------------------
+      Comprovante Não Emitido: 0002
+      Tempo Emitindo Doc. Fiscal: 00:18:20
+      Tempo Operacional: 19:09:14
+      MFD: 8751061142206
+      Número de Reduções Restantes: 0712
+      ------------------------------------------------
+      BEMATECH MP-2000 TH FI ECF-IF
+      ECF:001 LJ:0032 VERSÃO:01.03.02
+      FAB:BE0306SC95531101930 05/03/2013 19:09:43
+      QQQQQQQQQWYRREQQTU BR
+      ------------------------------------------------
+    EOS
 
     @parser = Parser.new
   end
