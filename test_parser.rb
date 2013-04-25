@@ -1,5 +1,6 @@
 require "test-unit"
 require "./parser"
+require "bigdecimal"
 
 class TestReductionZ < Test::Unit::TestCase
 
@@ -48,6 +49,28 @@ class TestReductionZ < Test::Unit::TestCase
       :cont_fita_detalhe_emitida =>  "000000"
     }
 
+
+    helper(text, redz)
+  end
+
+  def test_totalizadores
+    text = <<-EOS.gsub(/^\s+/, "")
+      TOTALIZADOR GERAL: 1.533.200,46
+      VENDA BRUTA DIÁRIA: 1.446,12
+      CANCELAMENTO ICMS: 278,00
+      DESCONTO ICMS: 15,78
+      Total de ISSQN: 0,00
+      CANCELAMENTO ISSQN: 0,00
+    EOS
+
+    redz = {
+      :tot_geral => "1.533.200,46",
+      # :venda_bruta => BigDecimal.new("1446.12"),
+      :tot_cancelamentos_icms => "278,00",
+      :tot_descontos_icms => "15,78",
+      :tot_acrescimos_issqn => "0,00",
+      :tot_cancelamentos_issqn => "0,00"
+    }
 
     helper(text, redz)
   end

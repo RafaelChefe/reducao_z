@@ -2,6 +2,8 @@ require "date"
 
 REGEX = 0
 TYPE = 1
+MONEY_REGEX = /(\d+\.)*\d+,\d+/im
+REGEX_OPTIONS = Regexp::IGNORECASE | Regexp::MULTILINE
 
 class Parser
 
@@ -19,7 +21,12 @@ class Parser
       :cont_geral_rel_ger => [/geral de relatório gerencial: \d+/im, :string],
       :cont_cupom_fiscal => [/contador de cupom fiscal: \d+/im, :string],
       :cont_cupom_fiscal_cancelados => [/cupom fiscal cancelado: \d+/im, :string],
-      :cont_fita_detalhe_emitida => [/contador de fita detalhe: \d+/im, :string]
+      :cont_fita_detalhe_emitida => [/contador de fita detalhe: \d+/im, :string],
+      :tot_geral => [Regexp.new("totalizador geral: #{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_cancelamentos_icms => [Regexp.new("cancelamento icms: #{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_descontos_icms => [Regexp.new("desconto icms: #{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_acrescimos_issqn => [Regexp.new("total de issqn: #{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_cancelamentos_issqn => [Regexp.new("cancelamento issqn: #{MONEY_REGEX}", REGEX_OPTIONS), :string]
     }
   end
 
