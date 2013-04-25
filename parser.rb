@@ -14,7 +14,12 @@ class Parser
       :cont_reducao_z => [/contador de reduções z:\s\d+/im, :string],
       :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string],
       :cont_operacoes_nao_fiscais => [/geral de operação não fiscal: \d+/im, :string],
-      :cont_comp_deb_cred => [/comprovante de crédito ou débito: \d+/im, :string]
+      :cont_comp_deb_cred => [/comprovante de crédito ou débito: \d+/im, :string],
+      :cont_oper_nao_fiscais_canceladas => [/geral de operação não-fiscal cancelada: \d+/im, :string],
+      :cont_geral_rel_ger => [/geral de relatório gerencial: \d+/im, :string],
+      :cont_cupom_fiscal => [/contador de cupom fiscal: \d+/im, :string],
+      :cont_cupom_fiscal_cancelados => [/cupom fiscal cancelado: \d+/im, :string],
+      :cont_fita_detalhe_emitida => [/contador de fita detalhe: \d+/im, :string]
     }
   end
 

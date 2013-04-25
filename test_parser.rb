@@ -31,4 +31,25 @@ class TestReductionZ < Test::Unit::TestCase
     helper("Comprovante de Crédito ou Débito: 0004\n", { :cont_comp_deb_cred => "0004" })
   end
 
+  def test_contadores_restantes
+    text = <<-EOS.gsub(/^\s+/, "")
+      Geral de Operação Não-Fiscal Cancelada: 0000
+      Geral de Relatório Gerencial: 001817
+      Contador de Cupom Fiscal: 009792
+      Cupom Fiscal Cancelado: 0003
+      Contador de Fita Detalhe: 000000
+    EOS
+
+    redz = {
+      :cont_oper_nao_fiscais_canceladas =>  "0000",
+      :cont_geral_rel_ger =>  "001817",
+      :cont_cupom_fiscal =>  "009792",
+      :cont_cupom_fiscal_cancelados =>  "0003",
+      :cont_fita_detalhe_emitida =>  "000000"
+    }
+
+
+    helper(text, redz)
+  end
+
 end
