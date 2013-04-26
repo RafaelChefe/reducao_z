@@ -17,6 +17,7 @@ end
 f = File.open(fn)
 
 p = Parser.new
-h = p.parse(f.read)
+contents = f.read
+h = p.parse(contents)
 
-puts h.inspect 
+puts h.inspect
