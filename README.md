@@ -27,4 +27,3 @@ Espelho MFD (or Fiscal Memory Mirror)
 Fortunately these printers provide a way to get a text file of everything it printed, and Redução Zs are printed.
 
 The goal of this project is to get that text, parse it and provide structured information about the Redução Z.
-
