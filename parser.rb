@@ -1,6 +1,7 @@
 #coding: utf-8
 
 require "date"
+require "bigdecimal"
 
 REGEX = 0
 TYPE = 1
@@ -25,6 +26,7 @@ class Parser
       :cont_cupom_fiscal_cancelados => [/cupom\s+fiscal\s+cancelado:\s+\d+/im, :string],
       :cont_fita_detalhe_emitida => [/contador\s+de\s+fita\s+detalhe:\s+\d+/im, :string],
       :tot_geral => [Regexp.new("totalizador\s+geral:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :venda_bruta => [Regexp.new("venda\s+bruta\s+diária:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :decimal],
       :tot_cancelamentos_icms => [Regexp.new("cancelamento\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_descontos_icms => [Regexp.new("desconto\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_acrescimos_issqn => [Regexp.new("total\s+de\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
@@ -41,6 +43,10 @@ class Parser
       return Date.parse(value)      
     when :string
       return value
+    when :decimal
+      # converting Brazilian money format to international format, as in:
+      # 1.234,56 => 1234.56
+      return BigDecimal.new(value.delete(".").gsub(",", "."))
     end
   end
 

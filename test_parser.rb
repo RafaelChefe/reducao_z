@@ -68,7 +68,7 @@ class TestReductionZ < Test::Unit::TestCase
 
     redz = {
       :tot_geral => "1.533.200,46",
-      # :venda_bruta => BigDecimal.new("1446.12"),
+      :venda_bruta => BigDecimal.new("1446.12"),
       :tot_cancelamentos_icms => "278,00",
       :tot_descontos_icms => "15,78",
       :tot_acrescimos_issqn => "0,00",
