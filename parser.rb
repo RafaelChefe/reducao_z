@@ -18,19 +18,23 @@ class Parser
       :data_movimento => [/movimento\s+do\s+dia:\s+\d{2}\/\d{2}\/\d{4}/im, :date],
       :cont_reducao_z => [/contador\s+de\s+reduções\s+z:\s+\d+/im, :string],
       :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string],
-      :cont_operacoes_nao_fiscais => [/geral\s+de\s+operação\s+não\s+fiscal:\s+\d+/im, :string],
+      :cont_geral_oper_nao_fiscais => [/geral\s+de\s+operação\s+não\s+fiscal:\s+\d+/im, :string],
       :cont_comp_deb_cred => [/comprovante\s+de\s+crédito\s+ou\s+débito:\s+\d+/im, :string],
       :cont_oper_nao_fiscais_canceladas => [/geral\s+de\s+operação\s+não-fiscal\s+cancelada: \d+/im, :string],
       :cont_geral_rel_ger => [/geral\s+de\s+relatório\s+gerencial:\s+\d+/im, :string],
       :cont_cupom_fiscal => [/contador\s+de\s+cupom\s+fiscal:\s+\d+/im, :string],
       :cont_cupom_fiscal_cancelados => [/cupom\s+fiscal\s+cancelado:\s+\d+/im, :string],
       :cont_fita_detalhe_emitida => [/contador\s+de\s+fita\s+detalhe:\s+\d+/im, :string],
+      :cont_comp_deb_cred_nao_emitido => [/comprovante\s+não\s+emitido:\s+\d+/im, :string],
       :tot_geral => [Regexp.new("totalizador\s+geral:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :venda_bruta => [Regexp.new("venda\s+bruta\s+diária:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :decimal],
       :tot_cancelamentos_icms => [Regexp.new("cancelamento\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_descontos_icms => [Regexp.new("desconto\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
-      :tot_acrescimos_issqn => [Regexp.new("total\s+de\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
-      :tot_cancelamentos_issqn => [Regexp.new("cancelamento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
+      :tot_acrescimos_issqn => [Regexp.new("acréscimo\s+iss:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_cancelamentos_issqn => [Regexp.new("cancelamento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_acrescimos_icms => [Regexp.new("acréscimo\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_isencao_icms => [Regexp.new("isento\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_nao_incidencia_icms => [Regexp.new("não\s+incidência\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
     }
   end
 
