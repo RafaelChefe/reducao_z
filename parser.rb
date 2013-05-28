@@ -6,6 +6,7 @@ require "bigdecimal"
 REGEX = 0
 TYPE = 1
 MONEY_REGEX = /(\d+\.)*\d+,\d+/im
+DATETIME_REGEX = /^\d+\/\d+\/\d+\s+\d+:\d+:\d+/im
 REGEX_OPTIONS = Regexp::IGNORECASE | Regexp::MULTILINE
 
 class Parser
@@ -82,6 +83,10 @@ class Parser
         reducao_z[key] = fix_type(value, @fields_spec[key][TYPE]) 
       end
     end
+
+    data_hora_reducao = DATETIME_REGEX.match(text).to_s
+
+    reducao_z[:data_hora_reducao] = DateTime.parse(data_hora_reducao) unless data_hora_reducao.empty?
 
     reducao_z
   end

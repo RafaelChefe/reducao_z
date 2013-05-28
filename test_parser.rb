@@ -11,12 +11,12 @@ class TestReductionZ < Test::Unit::TestCase
     assert_equal redz, Parser.new.parse(text)
   end
 
-  def test_sangria
-    helper("29 Sangria : 0001 50,00\n", { :tot_sangria => "50,00" })
+  def test_id
+    helper("05/03/2013 19:09:14 COO:017936\n", { :id => 17936, :data_hora_reducao => DateTime.new(2013, 3, 5, 19, 9, 14) } )
   end
 
-  def test_id
-    helper("05/03/2013 19:09:14 COO:017936\n", { :id => 17936 })
+  def test_sangria
+    helper("29 Sangria : 0001 50,00\n", { :tot_sangria => "50,00" })
   end
 
   def test_data_movimento
