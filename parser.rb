@@ -34,7 +34,10 @@ class Parser
       :tot_cancelamentos_issqn => [Regexp.new("cancelamento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_acrescimos_icms => [Regexp.new("acréscimo\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_isencao_icms => [Regexp.new("isento\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
-      :tot_nao_incidencia_icms => [Regexp.new("não\s+incidência\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
+      :tot_nao_incidencia_icms => [Regexp.new("não\s+incidência\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_subst_trib_icms => [Regexp.new("substituição\s+tributária\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_isencao_issqn => [Regexp.new("isento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_nao_incidencia_issqn => [Regexp.new("não\s+incidência\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
     }
   end
 

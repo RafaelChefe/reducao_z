@@ -74,6 +74,9 @@ class TestReductionZ < Test::Unit::TestCase
       ACRÉSCIMO ISS: 0,00
       Isento ICMS: 369,35
       Não Incidência ICMS: 0,00
+      Substituição Tributária ICMS: 0,00
+      Isento ISSQN: 0,00
+      Não Incidência ISSQN: 0,00
     EOS
 
     redz = {
@@ -84,7 +87,10 @@ class TestReductionZ < Test::Unit::TestCase
       :tot_cancelamentos_issqn => "0,00",
       :tot_acrescimos_icms => "0,00",
       :tot_isencao_icms => "369,35",
-      :tot_nao_incidencia_icms => "0,00"
+      :tot_nao_incidencia_icms => "0,00",
+      :tot_subst_trib_icms => "0,00",
+      :tot_isencao_issqn => "0,00",
+      :tot_nao_incidencia_issqn => "0,00"
     }
 
     helper(text, redz)
