@@ -11,6 +11,10 @@ class TestReductionZ < Test::Unit::TestCase
     assert_equal redz, Parser.new.parse(text)
   end
 
+  def test_sangria
+    helper("29 Sangria : 0001 50,00\n", { :tot_sangria => "50,00" })
+  end
+
   def test_id
     helper("05/03/2013 19:09:14 COO:017936\n", { :id => 17936 })
   end

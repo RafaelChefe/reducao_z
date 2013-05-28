@@ -37,7 +37,9 @@ class Parser
       :tot_nao_incidencia_icms => [Regexp.new("não\s+incidência\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_subst_trib_icms => [Regexp.new("substituição\s+tributária\s+icms:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_isencao_issqn => [Regexp.new("isento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
-      :tot_nao_incidencia_issqn => [Regexp.new("não\s+incidência\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
+      :tot_nao_incidencia_issqn => [Regexp.new("não\s+incidência\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      # I had to use single quotes and concat here. For some weird reason, it doesn't work like the others.
+      :tot_sangria => [Regexp.new('^\d+\s+sangria\s+:\s+\d+\s+'.concat(MONEY_REGEX.to_s), REGEX_OPTIONS), :string]
     }
   end
 
@@ -62,13 +64,15 @@ class Parser
 
     # for each field specified in @fields_spec
     @fields_spec.each_key do |key|
-
       # matches the corresponding line using the specified regex
       line = @fields_spec[key][REGEX].match(text)
 
       if line != nil
         # extracts only the value from the matched line (after the ":")
         value = line.to_s.split(":")[1].strip
+
+        # gets only the last value after the colon
+        value = value.split(" ").last
 
         # converts to the specified data type
         reducao_z[key] = fix_type(value, @fields_spec[key][TYPE]) 
