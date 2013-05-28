@@ -39,7 +39,11 @@ class Parser
       :tot_isencao_issqn => [Regexp.new("isento\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_nao_incidencia_issqn => [Regexp.new("não\s+incidência\s+issqn:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       # I had to use single quotes and concat here. For some weird reason, it doesn't work like the others.
-      :tot_sangria => [Regexp.new('^\d+\s+sangria\s+:\s+\d+\s+'.concat(MONEY_REGEX.to_s), REGEX_OPTIONS), :string]
+      :tot_sangria => [Regexp.new('^\d+\s+sangria\s+:\s+\d+\s+'.concat(MONEY_REGEX.to_s), REGEX_OPTIONS), :string],
+      :tot_suprimento => [Regexp.new('^\d+\s+suprimento\s+:\s+\d+\s+'.concat(MONEY_REGEX.to_s), REGEX_OPTIONS), :string],
+      :tot_cancelamentos_nao_fiscais => [Regexp.new("canc\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_descontos_nao_fiscais => [Regexp.new("desc\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_acrescimos_nao_fiscais => [Regexp.new("acre\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
     }
   end
 

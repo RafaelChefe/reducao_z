@@ -81,6 +81,10 @@ class TestReductionZ < Test::Unit::TestCase
       Substituição Tributária ICMS: 0,00
       Isento ISSQN: 0,00
       Não Incidência ISSQN: 0,00
+      30 Suprimento : 0001 50,00
+      CANC NÃO-FISC: 0,00
+      DESC NÃO-FISC: 0,00
+      ACRE NÃO-FISC: 0,00
     EOS
 
     redz = {
@@ -94,7 +98,11 @@ class TestReductionZ < Test::Unit::TestCase
       :tot_nao_incidencia_icms => "0,00",
       :tot_subst_trib_icms => "0,00",
       :tot_isencao_issqn => "0,00",
-      :tot_nao_incidencia_issqn => "0,00"
+      :tot_nao_incidencia_issqn => "0,00",
+      :tot_suprimento => "50,00",
+      :tot_cancelamentos_nao_fiscais => "0,00",
+      :tot_descontos_nao_fiscais => "0,00",
+      :tot_acrescimos_nao_fiscais => "0,00"
     }
 
     helper(text, redz)
