@@ -65,7 +65,7 @@ class Parser
     end
   end
 
-  def parse(text)
+  def parse(text, pos_id = 0, store_chain_id = 0)
     reducao_z = Hash.new
 
     # for each field specified in @fields_spec
@@ -96,6 +96,8 @@ class Parser
     reducao_z[:tot_parc_nao_sujeitos_icms] = "0" * 392
     reducao_z[:tot_descontos_issqn] = "0" * 14
     reducao_z[:modo] = "00"
+    reducao_z[:pos_id] = pos_id
+    reducao_z[:store_chain_id] = store_chain_id
 
     reducao_z
   end

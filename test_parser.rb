@@ -10,15 +10,16 @@ FIXED_FIELDS_HASH = { :cont_comp_deb_cred_cancelados => "0000",
                       :cont_operacaoes_nao_fiscais => "0" * 120,
                       :tot_parc_nao_sujeitos_icms => "0" * 392,
                       :tot_descontos_issqn => "0" * 14,
-                      :modo => "00"
+                      :modo => "00",
+                      :pos_id => 0,
+                      :store_chain_id => 0
                     }
 
 class TestReductionZ < Test::Unit::TestCase
 
   def helper(text, redz)
     expected_result = redz.merge(FIXED_FIELDS_HASH)
-    parse_result = Parser.new.parse(text)
-    assert_equal expected_result, parse_result
+    assert_equal expected_result, Parser.new.parse(text)
   end
 
   def test_cont_ordem_operacao
