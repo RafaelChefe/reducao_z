@@ -16,9 +16,9 @@ FIXED_FIELDS_HASH = { :cont_comp_deb_cred_cancelados => "0000",
 class TestReductionZ < Test::Unit::TestCase
 
   def helper(text, redz)
-    parse_result = redz.merge(FIXED_FIELDS_HASH)
-    # require "pry"; binding.pry
-    assert_equal parse_result, Parser.new.parse(text)
+    expected_result = redz.merge(FIXED_FIELDS_HASH)
+    parse_result = Parser.new.parse(text)
+    assert_equal expected_result, parse_result
   end
 
   def test_id
@@ -95,6 +95,7 @@ class TestReductionZ < Test::Unit::TestCase
       CANC NÃO-FISC: 0,00
       DESC NÃO-FISC: 0,00
       ACRE NÃO-FISC: 0,00
+      Substituição Tributária ISSQN: 0,00
     EOS
 
     redz = {
@@ -112,7 +113,8 @@ class TestReductionZ < Test::Unit::TestCase
       :tot_suprimento => "50,00",
       :tot_cancelamentos_nao_fiscais => "0,00",
       :tot_descontos_nao_fiscais => "0,00",
-      :tot_acrescimos_nao_fiscais => "0,00"
+      :tot_acrescimos_nao_fiscais => "0,00",
+      :tot_subst_trib_issqn => "0,00"
     }
 
     helper(text, redz)

@@ -44,7 +44,8 @@ class Parser
       :tot_suprimento => [Regexp.new('^\d+\s+suprimento\s+:\s+\d+\s+'.concat(MONEY_REGEX.to_s), REGEX_OPTIONS), :string],
       :tot_cancelamentos_nao_fiscais => [Regexp.new("canc\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
       :tot_descontos_nao_fiscais => [Regexp.new("desc\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
-      :tot_acrescimos_nao_fiscais => [Regexp.new("acre\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
+      :tot_acrescimos_nao_fiscais => [Regexp.new("acre\s+não-fisc:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string],
+      :tot_subst_trib_issqn => [Regexp.new("substituição\s+tributária\sISSQN:\s+#{MONEY_REGEX}", REGEX_OPTIONS), :string]
     }
   end
 

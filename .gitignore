@@ -2,4 +2,4 @@
 fields.rb
 *.txt
 dummy.rb
-fields_checklist.rb
+fields_checklist*.rb
