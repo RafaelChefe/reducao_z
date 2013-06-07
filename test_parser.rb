@@ -21,8 +21,8 @@ class TestReductionZ < Test::Unit::TestCase
     assert_equal expected_result, parse_result
   end
 
-  def test_id
-    helper("05/03/2013 19:09:14 COO:017936\n", { :id => 17936, :data_hora_reducao => DateTime.new(2013, 3, 5, 19, 9, 14) } )
+  def test_cont_ordem_operacao
+    helper("05/03/2013 19:09:14 COO:017936\n", { :cont_ordem_operacao => "017936", :data_hora_reducao => DateTime.new(2013, 3, 5, 19, 9, 14) } )
   end
 
   def test_sangria

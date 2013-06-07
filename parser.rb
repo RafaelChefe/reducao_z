@@ -15,7 +15,7 @@ class Parser
     # parsing information for each field, organized like this:
     # :field_key => [/regex/, :data_type]
     @fields_spec = {
-      :id => [/coo:\d{6}/im, :integer],
+      :cont_ordem_operacao => [/coo:\d{6}/im, :string],
       :data_movimento => [/movimento\s+do\s+dia:\s+\d{2}\/\d{2}\/\d{4}/im, :date],
       :cont_reducao_z => [/contador\s+de\s+reduções\s+z:\s+\d+/im, :string],
       :cont_reinicio_operacao => [/contador\s+de\s+reinício\s+de\s+operação:\s+\d+/im, :string],
