@@ -88,6 +88,14 @@ class Parser
 
     reducao_z[:data_hora_reducao] = DateTime.parse(data_hora_reducao) unless data_hora_reducao.empty?
 
+    reducao_z[:cont_comp_deb_cred_cancelados] = "0000"
+    reducao_z[:cont_especificos_rel_ger] = "0" * 120
+    reducao_z[:cont_operacaoes_nao_fiscais] = "0" * 120
+    reducao_z[:tot_parc_nao_sujeitos_icms] = "0" * 392
+    reducao_z[:tot_parc_nao_sujeitos_icms] = "0" * 392
+    reducao_z[:tot_descontos_issqn] = "0" * 14
+    reducao_z[:modo] = "00"
+
     reducao_z
   end
 end

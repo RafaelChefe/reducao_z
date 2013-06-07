@@ -5,10 +5,20 @@ require "test-unit"
 require "./parser"
 require "bigdecimal"
 
+FIXED_FIELDS_HASH = { :cont_comp_deb_cred_cancelados => "0000",
+                      :cont_especificos_rel_ger => "0" * 120,
+                      :cont_operacaoes_nao_fiscais => "0" * 120,
+                      :tot_parc_nao_sujeitos_icms => "0" * 392,
+                      :tot_descontos_issqn => "0" * 14,
+                      :modo => "00"
+                    }
+
 class TestReductionZ < Test::Unit::TestCase
 
   def helper(text, redz)
-    assert_equal redz, Parser.new.parse(text)
+    parse_result = redz.merge(FIXED_FIELDS_HASH)
+    # require "pry"; binding.pry
+    assert_equal parse_result, Parser.new.parse(text)
   end
 
   def test_id
