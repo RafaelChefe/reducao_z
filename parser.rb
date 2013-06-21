@@ -99,6 +99,10 @@ class Parser
     reducao_z[:pos_id] = pos_id
     reducao_z[:store_chain_id] = store_chain_id
 
+    aliq_trib = text.scan(/T\d*,00%/im)
+
+    reducao_z[:aliq_trib] = aliq_trib.map{ |s| s.delete('T,%') }.join.ljust(64,"0") unless aliq_trib.empty?
+
     reducao_z
   end
 end

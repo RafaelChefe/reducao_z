@@ -120,4 +120,19 @@ class TestReductionZ < Test::Unit::TestCase
 
     helper(text, redz)
   end
+
+  def test_aliq_trib
+    text = <<-EOS.gsub(/^\s+/, "")
+      ----------ICMS----------
+      Totalizador Base Cálculo( R$)       Imposto( R$)
+      T07,00%                 0,00                0,00
+      T12,00%                 0,00                0,00
+      T25,00%                 0,00                0,00
+      T17,00%               563,55               95,80
+    EOS
+
+    redz = { :aliq_trib => "0700120025001700000000000000000000000000000000000000000000000000" }
+
+    helper(text, redz)
+  end
 end
