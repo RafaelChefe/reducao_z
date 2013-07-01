@@ -100,8 +100,23 @@ class Parser
     reducao_z[:store_chain_id] = store_chain_id
 
     aliq_trib = text.scan(/T\d*,00%/im)
+    tot_parciais_trib = text.scan(/t\d*,\d*%\s*\d*,\d*\s*\d*,\d*/mi)
+
+    # this is what the following one-liners do, having this text as example:
+
+    # T07,00%                 0,00               11,11
+    # T12,00%                 0,00               22,22
+    # T25,00%                 0,00               33,33
+    # T17,00%               563,55               44,44
+
+    # the first one-lines takes the first column and turns it into this:
+    # 0700120025001700000000000000000000000000000000000000000000000000
+
+    # the second one-liner takes the last column and turns it into this:
+    # 00000000001111000000000022220000000000333300000000004444000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
     reducao_z[:aliq_trib] = aliq_trib.map{ |s| s.delete('T,%') }.join.ljust(64,"0") unless aliq_trib.empty?
+    reducao_z[:tot_parciais_trib] = tot_parciais_trib.map { |s| s.split(" ").last.delete(",").rjust(14, "0") }.join.ljust(224, "0") unless tot_parciais_trib.empty?
 
     reducao_z
   end
