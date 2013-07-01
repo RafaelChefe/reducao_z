@@ -133,7 +133,20 @@ class TestReductionZ < Test::Unit::TestCase
 
     redz = { :aliq_trib => "0700120025001700000000000000000000000000000000000000000000000000",
              :tot_parciais_trib => "00000000001111000000000022220000000000333300000000004444000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" }
-             
+
     helper(text, redz)
   end
+
+  def test_params
+    text = ""
+    pos_id = 111
+    store_chain_id = 222
+
+    redz = { :pos_id => pos_id, :store_chain_id => store_chain_id }
+
+    expected_result = FIXED_FIELDS_HASH.merge(redz)
+
+    assert_equal expected_result, Parser.new.parse(text, pos_id, store_chain_id)
+  end
+
 end
